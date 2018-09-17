@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.5</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <PackageId>SecByte.Xunit.Gherkin</PackageId>
+    <Title>SecByte.Xunit.Gherkin</Title>
+    <Description>SecByte.Xunit.Gherkin is a BDD test framework for dotnet and dotnet core</Description>
+    <Authors>SecByte</Authors>
+    <Company>SecByte</Company>
+    <Copyright>2018 SecByte</Copyright>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://github.com/secbyte/SecByte.Xunit.Gherkin/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/secbyte/SecByte.Xunit.Gherkin</PackageProjectUrl>
+    <PackageTags>BDD, Gherkin, Xunit, Testing, Behavior Driven Development</PackageTags>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/SecByte/SecByte.Xunit.Gherkin</RepositoryUrl>
+    <Version>1.0</Version>
+    <PackageReleaseNotes>https://github.com/SecByte/SecByte.Xunit.Gherkin/blob/master/versions/1.0.md</PackageReleaseNotes>
+    <AssemblyName>SecByte.Xunit.Gherkin</AssemblyName>
+    <RootNamespace>SecByte.Xunit.Gherkin</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="gherkin" Version="5.0.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+  </ItemGroup>
+
+</Project>
