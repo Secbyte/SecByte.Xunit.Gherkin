@@ -8,41 +8,37 @@ namespace SecByte.Xunit.Gherkin
 {
 	internal sealed class Scenario
 	{
-		private readonly Dictionary<string, object> _context;
+		private readonly string _scenarioName;
 		private readonly ReadOnlyCollection<StepMethod> _steps;
 
-		public Scenario(IEnumerable<StepMethod> stepMethods)
+		public Scenario(string name, IEnumerable<StepMethod> stepMethods)
 		{
-			_context = new Dictionary<string, object>();
+			_scenarioName = name;
 			_steps = stepMethods != null
 				? new ReadOnlyCollection<StepMethod>(stepMethods.ToList())
 				: throw new ArgumentNullException(nameof(stepMethods));
-		}				
-
-		public Scenario(Scenario background, Scenario main)
-		{
-			_context = new Dictionary<string, object>();
-			_steps = background._steps.ToList().Concat(main._steps).ToList().AsReadOnly();		
 		}
-		
-        public async Task ExecuteAsync(Feature feature, IScenarioOutput scenarioOutput)
+
+		public string Name => _scenarioName;
+
+		public async Task ExecuteAsync(Feature feature, IScenarioOutput scenarioOutput)
         {
             if (scenarioOutput == null)
-                throw new ArgumentNullException(nameof(scenarioOutput));
+                throw new ArgumentNullException(nameof(scenarioOutput));			
 
             var step = _steps.GetEnumerator();
             while(step.MoveNext())
             {
                 try
                 {
-                    await step.Current.ExecuteAsync(_context);
+                    await step.Current.ExecuteAsync(feature.ScenarioContext);
                     scenarioOutput.StepPassed($"{step.Current.Kind} {step.Current.StepText}");
                 }
                 catch
                 {
 					try
 					{
-						feature.OnStepFailed(step.Current.StepText);
+						feature.OnStepFailed(_scenarioName, step.Current.StepText);
 					}
 					catch(Exception ex)
 					{

@@ -22,22 +22,17 @@ namespace SecByte.Xunit.Gherkin
                 throw new ArgumentNullException(nameof(scenarioName));
 
             var featureClass = FeatureClass.FromFeatureInstance(featureInstance);
-            var featureFile = _featureFileRepository.GetByFilePath(featureClass.FeatureFilePath);
+            var featureFile = _featureFileRepository.GetByFilePath(featureClass.FeatureFilePath);            
 
-            var gherkinScenario = featureFile.GetScenario(scenarioName);
-            if (gherkinScenario == null)
-                throw new InvalidOperationException($"Cannot find scenario `{scenarioName}`.");
+			var gherkinScenario = featureFile.GetScenario(scenarioName);
+			if (gherkinScenario == null)
+				throw new InvalidOperationException($"Cannot find scenario `{scenarioName}`.");
 
-			var scenario = featureClass.ExtractScenario(gherkinScenario);
+			var gherkinBackground = featureFile.GetBackground();
 
-			var background = featureFile.GetBackgroundScenario();
-			if (background != null)
-			{				
-				var backgroundScenario = featureClass.ExtractScenario(background);
-				scenario = new Scenario(backgroundScenario, scenario);				
-			}						
-			
-            await scenario.ExecuteAsync(featureInstance, new ScenarioOutput(featureInstance.InternalOutput));
+			var scenario = featureClass.ExtractScenario(gherkinScenario, gherkinBackground);
+
+			await scenario.ExecuteAsync(featureInstance, new ScenarioOutput(featureInstance.InternalOutput));
         }
     }
 }

@@ -37,7 +37,7 @@ namespace UnitTests
             //arrange.
             var featureInstance = new FeatureWithStepMethodsToInvoke();
 
-            var sut = new Scenario(new List<StepMethod>
+            var sut = new Scenario(String.Empty, new List<StepMethod>
             {
                 StepMethod.FromStepMethodInfo(StepMethodInfo.FromMethodInfo(featureInstance.GetType().GetMethod(nameof(FeatureWithStepMethodsToInvoke.ScenarioStep1)), featureInstance), new Gherkin.Ast.Step(null, "Given", FeatureWithStepMethodsToInvoke.ScenarioStep1Text, null)),
                 StepMethod.FromStepMethodInfo(StepMethodInfo.FromMethodInfo(featureInstance.GetType().GetMethod(nameof(FeatureWithStepMethodsToInvoke.ScenarioStep2)), featureInstance), new Gherkin.Ast.Step(null, "And", FeatureWithStepMethodsToInvoke.ScenarioStep2Text, null)),
@@ -132,7 +132,7 @@ namespace UnitTests
         public async Task ExecuteAsync_Requires_Output()
         {
             //arrange.
-            var sut = new Scenario(new List<StepMethod>());
+            var sut = new Scenario(String.Empty, new List<StepMethod>());
 
             //act / assert.
             await Assert.ThrowsAsync<ArgumentNullException>(() => sut.ExecuteAsync(null, null));
@@ -144,7 +144,7 @@ namespace UnitTests
             //arrange.
             var featureInstance = new FeatureWithStepMethodsToInvoke_And_Throwing();
 
-            var sut = new Scenario(new List<StepMethod>
+            var sut = new Scenario(String.Empty, new List<StepMethod>
             {
                 StepMethod.FromStepMethodInfo(StepMethodInfo.FromMethodInfo(featureInstance.GetType().GetMethod(nameof(FeatureWithStepMethodsToInvoke_And_Throwing.ScenarioStep1)), featureInstance), new Gherkin.Ast.Step(null, "Given", FeatureWithStepMethodsToInvoke_And_Throwing.ScenarioStep1Text, null)),
                 StepMethod.FromStepMethodInfo(StepMethodInfo.FromMethodInfo(featureInstance.GetType().GetMethod(nameof(FeatureWithStepMethodsToInvoke_And_Throwing.ScenarioStep2)), featureInstance), new Gherkin.Ast.Step(null, "And", FeatureWithStepMethodsToInvoke_And_Throwing.ScenarioStep2Text, null)),

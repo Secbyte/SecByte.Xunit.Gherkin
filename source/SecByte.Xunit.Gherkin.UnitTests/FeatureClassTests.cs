@@ -62,7 +62,7 @@ namespace UnitTests
                     "And " + FeatureWithMatchingScenarioStepsToExtract.ScenarioStep2Text.Replace(@"(\d+)", "15", StringComparison.InvariantCultureIgnoreCase),
                     "When " + FeatureWithMatchingScenarioStepsToExtract.ScenarioStep3Text,
                     "Then " + FeatureWithMatchingScenarioStepsToExtract.ScenarioStep4Text.Replace(@"(\d+)", "27", StringComparison.InvariantCultureIgnoreCase)
-                }).Feature.Children.First() as Gherkin.Ast.Scenario);
+                }).Feature.Children.First() as Gherkin.Ast.Scenario, null);
 
             //assert.
             Assert.NotNull(scenario);
@@ -216,7 +216,7 @@ namespace UnitTests
                     })).Feature.Children.First() as Gherkin.Ast.Scenario;
 
             //act.
-            var scenario = sut.ExtractScenario(gherknScenario);
+            var scenario = sut.ExtractScenario(gherknScenario, null);
 
             //assert.
             Assert.NotNull(scenario);
@@ -253,7 +253,7 @@ in it";
                     .Feature.Children.First() as Gherkin.Ast.Scenario;
 
             //act.
-            var scenario = sut.ExtractScenario(gherkinScenario);
+            var scenario = sut.ExtractScenario(gherkinScenario, null);
 
             //assert.
             Assert.NotNull(scenario);
@@ -282,7 +282,7 @@ in it";
             var scenario = sut.ExtractScenario(CreateGherkinDocument("scenario 123", new string[]
             {
                 "Given something else"
-            }).Feature.Children.OfType<Gherkin.Ast.Scenario>().First());
+            }).Feature.Children.OfType<Gherkin.Ast.Scenario>().First(), null);
 
             //assert.
             Assert.NotNull(scenario);

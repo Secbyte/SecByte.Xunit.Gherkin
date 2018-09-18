@@ -13,17 +13,17 @@ namespace SecByte.Xunit.Gherkin
             GherkinDocument = gherkinDocument ?? throw new System.ArgumentNullException(nameof(gherkinDocument));
         }
 
-        public global::Gherkin.Ast.ScenarioDefinition GetScenario(string scenarioName)
-        {
-            return GherkinDocument.Feature.Children.FirstOrDefault(s => s.Name == scenarioName);
-        }
-
-		public global::Gherkin.Ast.ScenarioDefinition GetBackgroundScenario()
+		public global::Gherkin.Ast.Scenario GetScenario(string scenarioName)
 		{
-			return GherkinDocument.Feature.Children.SingleOrDefault(s => s.Keyword == "Background");
+			return GherkinDocument.Feature.Children.FirstOrDefault(s => s.Name == scenarioName) as global::Gherkin.Ast.Scenario;
 		}
 
-        internal ScenarioOutline GetScenarioOutline(string scenarioOutlineName)
+		public global::Gherkin.Ast.Background GetBackground()
+		{
+			return GherkinDocument.Feature.Children.OfType<global::Gherkin.Ast.Background>().SingleOrDefault();
+		}
+
+		internal ScenarioOutline GetScenarioOutline(string scenarioOutlineName)
         {
             return GherkinDocument.Feature.Children.FirstOrDefault(s => s.Name == scenarioOutlineName) as global::Gherkin.Ast.ScenarioOutline;
         }

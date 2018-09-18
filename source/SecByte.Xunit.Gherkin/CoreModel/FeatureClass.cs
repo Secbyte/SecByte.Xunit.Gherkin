@@ -61,43 +61,54 @@ namespace SecByte.Xunit.Gherkin
 					.Select(m => StepMethodInfo.FromMethodInfo(m, instance));		
 		}
 
-        public Scenario ExtractScenario(global::Gherkin.Ast.ScenarioDefinition gherkinScenario)
-        {
-            if (gherkinScenario == null)
-                throw new ArgumentNullException(nameof(gherkinScenario));
+		public Scenario ExtractScenario(global::Gherkin.Ast.Scenario scenario, global::Gherkin.Ast.Background background)
+		{
+			if (scenario == null)
+				throw new ArgumentNullException(nameof(scenario));
 
-            var matchingStepMethods = gherkinScenario.Steps
-                .Select(gherkingScenarioStep =>
-                {
-                    var matchingStepMethodInfo = _stepMethods.FirstOrDefault(stepMethodInfo => IsStepMethodInfoAMatch(gherkingScenarioStep, stepMethodInfo));
-                    if (matchingStepMethodInfo == null)
-                        throw new InvalidOperationException($"Cannot match any method with step `{gherkingScenarioStep.Keyword.Trim()} {gherkingScenarioStep.Text.Trim()}`. Scenario `{gherkinScenario.Name}`.");
+			var steps = ExtractSteps(scenario);
+			if (background != null)
+				steps = steps.Concat(ExtractSteps(background)).ToList();
 
-                    var stepMethod = StepMethod.FromStepMethodInfo(matchingStepMethodInfo, gherkingScenarioStep);
-                    return stepMethod;
-                })
-                .ToList();
+			return new Scenario(scenario.Name, steps);
+		}
 
-            return new Scenario(matchingStepMethods);
+		private List<StepMethod> ExtractSteps(global::Gherkin.Ast.ScenarioDefinition gherkinScenario)
+		{
+			if (gherkinScenario == null)
+				throw new ArgumentNullException(nameof(gherkinScenario));
 
-            bool IsStepMethodInfoAMatch(global::Gherkin.Ast.Step gherkinScenarioStep, StepMethodInfo stepMethod)
-            {
-                var gherkinStepText = gherkinScenarioStep.Text.Trim();
+			return gherkinScenario.Steps
+				.Select(gherkingScenarioStep =>
+				{
+					var matchingStepMethodInfo = _stepMethods.FirstOrDefault(stepMethodInfo => IsStepMethodInfoAMatch(gherkingScenarioStep, stepMethodInfo));
+					if (matchingStepMethodInfo == null)
+						throw new InvalidOperationException($"Cannot match any method with step `{gherkingScenarioStep.Keyword.Trim()} {gherkingScenarioStep.Text.Trim()}`. Scenario `{gherkinScenario.Name}`.");
 
-                foreach (var pattern in stepMethod.ScenarioStepPatterns)
-                {
-                    if (!pattern.Kind.ToString().Equals(gherkinScenarioStep.Keyword.Trim(), StringComparison.OrdinalIgnoreCase))
-                        continue;
+					var stepMethod = StepMethod.FromStepMethodInfo(matchingStepMethodInfo, gherkingScenarioStep);
+					return stepMethod;
+				})
+				.ToList();
 
-                    var match = Regex.Match(gherkinStepText, pattern.Pattern);
-                    if (!match.Success || !match.Value.Equals(gherkinStepText))
-                        continue;
+			bool IsStepMethodInfoAMatch(global::Gherkin.Ast.Step gherkinScenarioStep, StepMethodInfo stepMethod)
+			{
+				var gherkinStepText = gherkinScenarioStep.Text.Trim();
 
-                    return true;
-                }
+				foreach (var pattern in stepMethod.ScenarioStepPatterns)
+				{
+					if (!pattern.Kind.ToString().Equals(gherkinScenarioStep.Keyword.Trim(), StringComparison.OrdinalIgnoreCase))
+						continue;
 
-                return false;
-            }
-        }
-    }
+					var match = Regex.Match(gherkinStepText, pattern.Pattern);
+					if (!match.Success || !match.Value.Equals(gherkinStepText))
+						continue;
+
+					return true;
+				}
+
+				return false;
+			}
+		}
+	}
 }
+

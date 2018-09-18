@@ -5,7 +5,7 @@
     <IsPackable>true</IsPackable>
     <PackageId>SecByte.Xunit.Gherkin</PackageId>
     <Title>SecByte.Xunit.Gherkin</Title>
-    <Description>SecByte.Xunit.Gherkin is a BDD test framework for dotnet and dotnet core</Description>
+    <Description>SecByte.Xunit.Gherkin is a modified version of Xunit.Gherkin.Quick</Description>
     <Authors>SecByte</Authors>
     <Company>SecByte</Company>
     <Copyright>2018 SecByte</Copyright>
@@ -15,7 +15,7 @@
     <PackageTags>BDD, Gherkin, Xunit, Testing, Behavior Driven Development</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/SecByte/SecByte.Xunit.Gherkin</RepositoryUrl>
-    <Version>1.0</Version>
+    <Version>1.0.1</Version>
     <PackageReleaseNotes>https://github.com/SecByte/SecByte.Xunit.Gherkin/blob/master/versions/1.0.md</PackageReleaseNotes>
     <AssemblyName>SecByte.Xunit.Gherkin</AssemblyName>
     <RootNamespace>SecByte.Xunit.Gherkin</RootNamespace>

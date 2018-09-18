@@ -25,7 +25,7 @@ namespace SecByte.Xunit.Gherkin
             await scenarioOutlineExecutor.ExecuteScenarioOutlineAsync(this, scenarioOutlineName, exampleName, exampleIndex);
         }
 
-		protected internal virtual void OnStepFailed(string stepText)
+		protected internal virtual void OnStepFailed(string scenarioName, string stepText)
 		{
 
 		}
