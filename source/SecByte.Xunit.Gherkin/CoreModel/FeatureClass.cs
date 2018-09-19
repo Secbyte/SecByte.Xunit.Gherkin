@@ -68,7 +68,7 @@ namespace SecByte.Xunit.Gherkin
 
 			var steps = ExtractSteps(scenario);
 			if (background != null)
-				steps = steps.Concat(ExtractSteps(background)).ToList();
+				steps = ExtractSteps(background).Concat(steps).ToList();
 
 			return new Scenario(scenario.Name, steps);
 		}
