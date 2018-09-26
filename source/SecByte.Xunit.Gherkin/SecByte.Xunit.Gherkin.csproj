@@ -15,7 +15,7 @@
     <PackageTags>BDD, Gherkin, Xunit, Testing, Behavior Driven Development</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/SecByte/SecByte.Xunit.Gherkin</RepositoryUrl>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageReleaseNotes>https://github.com/SecByte/SecByte.Xunit.Gherkin/blob/master/versions/1.0.md</PackageReleaseNotes>
     <AssemblyName>SecByte.Xunit.Gherkin</AssemblyName>
     <RootNamespace>SecByte.Xunit.Gherkin</RootNamespace>

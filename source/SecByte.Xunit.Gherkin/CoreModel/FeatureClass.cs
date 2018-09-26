@@ -36,7 +36,7 @@ namespace SecByte.Xunit.Gherkin
                 .GetCustomAttribute<FeatureFileAttribute>();
             var featureFilePath = featureFileAttribute?.Path ?? $"{featureType.Name}.feature";
 
-            var stepMethods = featureType.GetTypeInfo().GetMethods()
+            var stepMethods = featureType.GetTypeInfo().GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy)
                 .Where(m => m.IsDefined(typeof(BaseStepDefinitionAttribute)))
                 .Select(m => StepMethodInfo.FromMethodInfo(m, featureInstance))
                 .ToList();
@@ -56,7 +56,7 @@ namespace SecByte.Xunit.Gherkin
 			var instance = Activator.CreateInstance(fromType);
 
 			return 
-				fromType.GetTypeInfo().GetMethods()
+				fromType.GetTypeInfo().GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy)
 					.Where(m => m.IsDefined(typeof(BaseStepDefinitionAttribute)))
 					.Select(m => StepMethodInfo.FromMethodInfo(m, instance));		
 		}
