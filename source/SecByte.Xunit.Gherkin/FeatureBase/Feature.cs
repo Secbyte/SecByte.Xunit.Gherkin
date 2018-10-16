@@ -29,5 +29,10 @@ namespace SecByte.Xunit.Gherkin
 		{
 
 		}
+
+        protected internal virtual void OnScenarioComplete(string scenarioName)
+        {
+
+        }
     }
 }

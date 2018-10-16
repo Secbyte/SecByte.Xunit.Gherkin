@@ -55,6 +55,8 @@ namespace SecByte.Xunit.Gherkin
                     throw;
                 }
             }
+
+            feature.OnScenarioComplete(_scenarioName);
         }
     }
 }
